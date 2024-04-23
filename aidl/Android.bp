@@ -26,15 +26,10 @@ soong_config_module_type {
    ],
 }
 
-filegroup {
-    name: "android.hardware.boot-service.qti.common_src",
-    srcs: ["main.cpp", "BootControl.cpp"],
-}
-
 bootctrl_cc_defaults {
-    name: "android.hardware.boot-service.qti.common_defaults",
+    name: "android.hardware.boot-service.qti.common",
     relative_install_path: "hw",
-    defaults: ["libboot_control_defaults", "libboot_control_qti_defaults"],
+    defaults: ["libboot_control_defaults"],
     vintf_fragments: ["boot-service.qti.xml"],
     soong_config_variables: {
         target_supports_wearable : {
@@ -44,6 +39,7 @@ bootctrl_cc_defaults {
         },
     },
     shared_libs: [
+        "libboot_control_qti",
         "libbase",
         "libbinder_ndk",
         "android.hardware.boot-V1-ndk",
@@ -51,19 +47,19 @@ bootctrl_cc_defaults {
     static_libs: [
         "libboot_control",
     ],
-    srcs: [":android.hardware.boot-service.qti.common_src"],
+    srcs: ["main.cpp", "BootControl.cpp"],
 }
 
 cc_binary {
     name: "android.hardware.boot-service.qti",
-    defaults: ["android.hardware.boot-service.qti.common_defaults"],
+    defaults: ["android.hardware.boot-service.qti.common"],
     init_rc: ["android.hardware.boot-service.qti.rc"],
     vendor: true,
 }
 
 cc_binary {
     name: "android.hardware.boot-service.qti.recovery",
-    defaults: ["android.hardware.boot-service.qti.common_defaults"],
+    defaults: ["android.hardware.boot-service.qti.common"],
     init_rc: ["android.hardware.boot-service.qti.recovery.rc"],
     recovery: true,
 }
