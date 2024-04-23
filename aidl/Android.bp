@@ -39,7 +39,7 @@ bootctrl_cc_defaults {
         },
     },
     shared_libs: [
-        "libboot_control_qti",
+        "libboot_control_qti_defaults",
         "libbase",
         "libbinder_ndk",
         "android.hardware.boot-V1-ndk",
